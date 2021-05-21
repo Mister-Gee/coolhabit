@@ -5,8 +5,7 @@ import {
     Button, 
     Typography, 
     Toolbar, 
-    makeStyles, 
-    useTheme, 
+    makeStyles,
     CssBaseline,
     Divider,
     Drawer,
@@ -19,14 +18,15 @@ import {
     Menu, 
     Search, 
     ShoppingCart, 
-    FavoriteBorder, 
-    ChevronLeft,
-    Mail,
-    MoveToInbox,
-    ChevronRight
+    FavoriteBorder
 } from '@material-ui/icons';
 import {NavLink} from 'react-router-dom';
 import {useState} from 'react';
+import CloseIcon from '@material-ui/icons/Close';
+import HomeIcon from '@material-ui/icons/Home';
+import CategoryIcon from '@material-ui/icons/Category';
+import StorefrontIcon from '@material-ui/icons/Storefront';
+import InfoIcon from '@material-ui/icons/Info';
 
 const drawerWidth = 240
 
@@ -38,11 +38,10 @@ const useStyles = makeStyles((theme) => ({
       marginRight: theme.spacing(2),
     },
     appbar: {
-        backgroundColor: "BLACK",
         transition: theme.transitions.create(['margin', 'width'], {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
-        }),
+        })
     },
     appBarShift: {
         width: `calc(100% - ${drawerWidth}px)`,
@@ -86,17 +85,25 @@ const useStyles = makeStyles((theme) => ({
         }),
         marginRight: 0,
       },
-    title: {
+    logoDiv: {
       flexGrow: 1,
+    },
+    logo: {
+      width: "100%",
+      maxWidth: "100px",
+      height: "auto",
+      margin: -20
     },
     menuItems: {
         flexGrow: 2
+    },
+    toolBar: {
+      backgroundColor: "#825408"
     }
   }));
   
 const Navbar = () => {
     const classes = useStyles()
-    const theme = useTheme();
     const [open, setOpen] = useState(false);
 
     const handleDrawerOpen = () => {
@@ -115,11 +122,11 @@ const Navbar = () => {
                 className={clsx(classes.appBar, {
                     [classes.appBarShift]: open,
                   })}
-                >
-            <Toolbar>
-                <Typography variant="h6" className={classes.title}>
-                COOL HABIT
-                </Typography>
+            >
+            <Toolbar className={classes.toolBar}>
+                <div className={classes.logoDiv}>
+                  <img src="./assets/images/logo.png" alt="Cool Habit" className={classes.logo}/>
+                </div>
                 <div className={classes.menuItems}>
                   <NavLink to="/" className="links">
                        Home
@@ -196,26 +203,27 @@ const Navbar = () => {
       >
         <div className={classes.drawerHeader}>
           <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'rtl' ? <ChevronLeft /> : <ChevronRight />}
+            <CloseIcon />
           </IconButton>
         </div>
         <Divider />
         <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <MoveToInbox /> : <Mail />}</ListItemIcon>
-              <ListItemText primary={text} />
+            <ListItem button>
+              <ListItemIcon> <HomeIcon /> </ListItemIcon>
+              <ListItemText primary={"Home"} />
             </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <MoveToInbox /> : <Mail />}</ListItemIcon>
-              <ListItemText primary={text} />
+            <ListItem button>
+              <ListItemIcon> <CategoryIcon /> </ListItemIcon>
+              <ListItemText primary={"Category"} />
             </ListItem>
-          ))}
+            <ListItem button>
+              <ListItemIcon> <StorefrontIcon /> </ListItemIcon>
+              <ListItemText primary={"Products"} />
+            </ListItem>
+            <ListItem button>
+              <ListItemIcon> <InfoIcon /> </ListItemIcon>
+              <ListItemText primary={"About"} />
+            </ListItem>
         </List>
       </Drawer>
         </div>
